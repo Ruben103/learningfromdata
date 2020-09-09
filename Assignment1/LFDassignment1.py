@@ -27,7 +27,14 @@ def read_corpus(corpus_file, use_sentiment):
 def identity(x):
     return x
 
-# COMMENT THIS
+"""
+OUR COMMENT:
+This part of the code reads in the trainset.txt and converts it to two lists {X,Y}
+X contains sentences
+Y contains the corresponding sentiment labels.
+Then, a splitpoint variable is used to divide the whole dataset into 75% training and 25% test sets.
+"""
+
 X, Y = read_corpus('trainset.txt', use_sentiment=True)
 split_point = int(0.75*len(X))
 Xtrain = X[:split_point]
@@ -51,12 +58,40 @@ else:
 classifier = Pipeline( [('vec', vec),
                         ('cls', MultinomialNB())] )
 
-# COMMENT THIS
+"""
+OUR COMMENT:
+The classifier object is a Pipeline object from the scikit-learn package.
+From the documentation: https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html,
+we observe that this object is used to apply a number of transforms using an estimator.
+
+From the object we see that the final_estimator is a MultinomialNB, which is a Naive Bayes Estimator for multinomial
+objects (the sentences have more than one words).
+
+The fit functions fits each pattern (combination of one sentence from the set Xtrain and label from the set Ytrain)
+using the MultinomialNB estimator.
+
+There is no output to the function. However, it modifies the object classifier such that its parameters are trained
+"""
 classifier.fit(Xtrain, Ytrain)
 
-# COMMENT THIS  
+"""
+OUR COMMENT:
+After the Pipeline object has fitted on the training data, we call .predict to predict on the test set Xtest.
+The object will perform a forward pass of the test data without updating its network paramaters.
+
+The function takes as input a vector of input. In this case a list of sentences.
+
+The output of the network is a vector of sentiment labels. In this case, the size of the output is 1500
+"""
 Yguess = classifier.predict(Xtest)
 
-# COMMENT THIS
+"""
+OUR COMMENT:
+The last line prints the accuracy using the function accuracy_score from the sklearn.metrics package.
+The accuracy is equal to the jaccard_score or hamming_score. Which, in a binary class problem is the computed
+hamming distance divided by the maximum possible hamming distance.
+
+In words, the output is equal to the perunage of correctly classified class labels.
+"""
 print(accuracy_score(Ytest, Yguess))
 
