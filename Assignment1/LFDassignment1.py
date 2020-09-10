@@ -1,10 +1,16 @@
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
+from OutputService import PrintScores
 
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
-# COMMENT THIS
+"""
+OUR COMMENT:
+This part of the code reads in the trainset.txt and converts it to two lists {X,Y}
+X contains sentences
+Y contains the corresponding sentiment labels.
+"""
 def read_corpus(corpus_file, use_sentiment):
     documents = []
     labels = []
@@ -22,6 +28,24 @@ def read_corpus(corpus_file, use_sentiment):
                 labels.append( tokens[0] )
 
     return documents, labels
+
+def construct_classifier():
+    # let's use the TF-IDF vectorizer
+    tfidf = True
+
+    # we use a dummy function as tokenizer and preprocessor,
+    # since the texts are already preprocessed and tokenized.
+    if tfidf:
+        vec = TfidfVectorizer(preprocessor=identity,
+                              tokenizer=identity)
+    else:
+        vec = CountVectorizer(preprocessor=identity,
+                              tokenizer=identity)
+
+    # combine the vectorizer with a Naive Bayes classifier
+    classifier = Pipeline([('vec', vec),
+                           ('cls', MultinomialNB())])
+    return classifier
     
 # a dummy function that just returns its input
 def identity(x):
@@ -29,13 +53,9 @@ def identity(x):
 
 """
 OUR COMMENT:
-This part of the code reads in the trainset.txt and converts it to two lists {X,Y}
-X contains sentences
-Y contains the corresponding sentiment labels.
-Then, a splitpoint variable is used to divide the whole dataset into 75% training and 25% test sets.
+A splitpoint variable is used to divide the whole dataset into 75% training and 25% test sets.
 """
-
-X, Y = read_corpus('trainset.txt', use_sentiment=False)
+X, Y = read_corpus('trainset.txt', use_sentiment=True)
 split_point = int(0.75*len(X))
 Xtrain = X[:split_point]
 Ytrain = Y[:split_point]
@@ -58,13 +78,6 @@ else:
 classifier = Pipeline( [('vec', vec),
                         ('cls', MultinomialNB())] )
 
-def get_distinct_labels(items):
-    distinct_labels = []
-    for item in items:
-        if item not in distinct_labels:
-            distinct_labels.append(item)
-    return distinct_labels
-
 """
 OUR COMMENT:
 The classifier object is a Pipeline object from the scikit-learn package.
@@ -79,7 +92,8 @@ using the MultinomialNB estimator.
 
 There is no output to the function. However, it modifies the object classifier such that its parameters are trained
 """
-classifier.fit(Xtrain, Ytrain)
+
+# classifier.fit(Xtrain, Ytrain)
 
 """
 OUR COMMENT:
@@ -91,24 +105,32 @@ The function takes as input a vector of input. In this case a list of sentences.
 The output of the network is a vector of sentiment labels. In this case, the size of the output is 1500
 """
 
-Yguess = classifier.predict(Xtest)
-distinct_labels = get_distinct_labels(Ytest)
+# Yguess = classifier.predict(Xtest)
 
-precision_score = precision_score(Ytest, Yguess, labels=distinct_labels, average=None)
-print("PRECISION SCORES:")
-for i in range(len(distinct_labels)):
-    print('\t', distinct_labels[i] + ':', round(precision_score[i], 4))
+use_sentiment = True
+for i in range(2):
+    classifier = construct_classifier()
+    if i == 0:
+        use_sentiment=False
+        print("\nPrinting scores for multi-classs problem")
+    else:
+        use_sentiment=True
+        print("\nPrinting scores for binary problem")
 
-recall_score = recall_score(Ytest, Yguess, labels=distinct_labels, average=None)
-print("\nRECALL SCORES:")
-for i in range(len(distinct_labels)):
-    print('\t', distinct_labels[i] + ':', round(recall_score[i], 4))
+    X, Y = read_corpus('trainset.txt', use_sentiment=use_sentiment)
+    split_point = int(0.75 * len(X))
+    Xtrain = X[:split_point]
+    Ytrain = Y[:split_point]
+    Xtest = X[split_point:]
+    Ytest = Y[split_point:]
 
-print("\nF-Scores:")
-fscore = f1_score(Ytest, Yguess, labels=distinct_labels, average=None)
-# f1 = 2 * ( (precision_score[i] * recall_score[i]) / (precision_score[i] + recall_score[i]) )
-for i in range(len(distinct_labels)):
-    print('\t', distinct_labels[i] + ':', round(fscore[i], 4))
+    #let the classifier fit
+    classifier.fit(Xtrain, Ytrain)
+    Yguess = classifier.predict(Xtest)
+
+    PrintScores().print_precision_score(y_test=Ytest, y_pred=Yguess)
+    PrintScores().print_recall_score(y_test=Ytest, y_pred=Yguess)
+    PrintScores().print_f1_score(y_test=Ytest, y_pred=Yguess)
 
 """
 OUR COMMENT:
