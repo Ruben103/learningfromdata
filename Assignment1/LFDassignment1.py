@@ -90,9 +90,24 @@ The function takes as input a vector of input. In this case a list of sentences.
 
 The output of the network is a vector of sentiment labels. In this case, the size of the output is 1500
 """
+
 Yguess = classifier.predict(Xtest)
 distinct_labels = get_distinct_labels(Ytest)
-precision_score = precision_score(Ytest, Yguess.tolist(), labels=distinct_labels, average='None')
+
+precision_score = precision_score(Ytest, Yguess, labels=distinct_labels, average=None)
+print("PRECISION SCORES:")
+for i in range(len(distinct_labels)):
+    print('\t', distinct_labels[i] + ':', round(precision_score[i], 4))
+
+recall_score = recall_score(Ytest, Yguess, labels=distinct_labels, average=None)
+print("\nRECALL SCORES:")
+for i in range(len(distinct_labels)):
+    print('\t', distinct_labels[i] + ':', round(recall_score[i], 4))
+
+print("\nF-Scores:")
+for i in range(len(distinct_labels)):
+    f1 = 2 * ( (precision_score[i] * recall_score[i]) / (precision_score[i] + recall_score[i]) )
+    print('\t', distinct_labels[i] + ':',round(f1, 4))
 
 """
 OUR COMMENT:
@@ -102,6 +117,6 @@ hamming distance divided by the maximum possible hamming distance.
 
 In words, the output is equal to the perunage of correctly classified class labels.
 """
-print(accuracy_score(Ytest, Yguess))
+print('\naccuracy_score' ,accuracy_score(Ytest, Yguess))
 
 print("BUGSTOPPER")
