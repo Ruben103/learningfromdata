@@ -105,9 +105,10 @@ for i in range(len(distinct_labels)):
     print('\t', distinct_labels[i] + ':', round(recall_score[i], 4))
 
 print("\nF-Scores:")
+fscore = f1_score(Ytest, Yguess, labels=distinct_labels, average=None)
+# f1 = 2 * ( (precision_score[i] * recall_score[i]) / (precision_score[i] + recall_score[i]) )
 for i in range(len(distinct_labels)):
-    f1 = 2 * ( (precision_score[i] * recall_score[i]) / (precision_score[i] + recall_score[i]) )
-    print('\t', distinct_labels[i] + ':',round(f1, 4))
+    print('\t', distinct_labels[i] + ':', round(fscore[i], 4))
 
 """
 OUR COMMENT:
