@@ -2,7 +2,7 @@ from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.pipeline import Pipeline
 
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
 # COMMENT THIS
 def read_corpus(corpus_file, use_sentiment):
@@ -35,7 +35,7 @@ Y contains the corresponding sentiment labels.
 Then, a splitpoint variable is used to divide the whole dataset into 75% training and 25% test sets.
 """
 
-X, Y = read_corpus('trainset.txt', use_sentiment=True)
+X, Y = read_corpus('trainset.txt', use_sentiment=False)
 split_point = int(0.75*len(X))
 Xtrain = X[:split_point]
 Ytrain = Y[:split_point]
@@ -57,6 +57,13 @@ else:
 # combine the vectorizer with a Naive Bayes classifier
 classifier = Pipeline( [('vec', vec),
                         ('cls', MultinomialNB())] )
+
+def get_distinct_labels(items):
+    distinct_labels = []
+    for item in items:
+        if item not in distinct_labels:
+            distinct_labels.append(item)
+    return distinct_labels
 
 """
 OUR COMMENT:
@@ -84,6 +91,8 @@ The function takes as input a vector of input. In this case a list of sentences.
 The output of the network is a vector of sentiment labels. In this case, the size of the output is 1500
 """
 Yguess = classifier.predict(Xtest)
+distinct_labels = get_distinct_labels(Ytest)
+precision_score = precision_score(Ytest, Yguess.tolist(), labels=distinct_labels, average='None')
 
 """
 OUR COMMENT:
@@ -95,3 +104,4 @@ In words, the output is equal to the perunage of correctly classified class labe
 """
 print(accuracy_score(Ytest, Yguess))
 
+print("BUGSTOPPER")
