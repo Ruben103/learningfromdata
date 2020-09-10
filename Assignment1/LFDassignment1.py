@@ -131,6 +131,7 @@ for i in range(2):
     PrintScores().print_precision_score(y_test=Ytest, y_pred=Yguess)
     PrintScores().print_recall_score(y_test=Ytest, y_pred=Yguess)
     PrintScores().print_f1_score(y_test=Ytest, y_pred=Yguess)
+    PrintScores().print_confusion_matrix(y_test=Ytest, y_pred=Yguess)
 
 """
 OUR COMMENT:
@@ -141,5 +142,3 @@ hamming distance divided by the maximum possible hamming distance.
 In words, the output is equal to the perunage of correctly classified class labels.
 """
 print('\naccuracy_score' ,accuracy_score(Ytest, Yguess))
-
-print("BUGSTOPPER")

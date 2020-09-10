@@ -1,4 +1,4 @@
-from sklearn.metrics import precision_score, recall_score, f1_score
+from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix
 
 class PrintScores:
 
@@ -23,6 +23,12 @@ class PrintScores:
         # f1 = 2 * ( (precision_score[i] * recall_score[i]) / (precision_score[i] + recall_score[i]) )
         for i in range(len(distinct_labels)):
             print('\t', distinct_labels[i] + ':', round(f1_score_multi[i], 4))
+
+    def print_confusion_matrix(self, y_test, y_pred):
+        distinct_labels = self.get_distinct_labels(y_test)
+        confusion_matrix_multi = confusion_matrix(y_true=y_test, y_pred=y_pred, labels=distinct_labels)
+        print("\nCONFUSION MATRIX", '\nshow this in the report')
+
 
     @staticmethod
     def get_distinct_labels(items):
