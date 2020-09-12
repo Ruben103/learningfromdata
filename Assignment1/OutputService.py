@@ -1,11 +1,13 @@
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, accuracy_score
 
+from tabulate import tabulate
+
 class PrintScores:
 
     def print_precision_score(self, y_test, y_pred):
         distinct_labels = self.get_distinct_labels(y_test)
         precision_score_multi = precision_score(y_test, y_pred, labels=distinct_labels, average=None)
-        print("PRECISION SCORES:")
+        print("\nPRECISION SCORES:")
         for i in range(len(distinct_labels)):
             print('\t', distinct_labels[i] + ':', round(precision_score_multi[i], 4))
 
@@ -39,8 +41,9 @@ class PrintScores:
 
     def print_confusion_matrix(self, y_test, y_pred):
         distinct_labels = self.get_distinct_labels(y_test)
-        confusion_matrix_multi = confusion_matrix(y_true=y_test, y_pred=y_pred, labels=distinct_labels)
-        print("\nCONFUSION MATRIX", '\nshow this in the report')
+        confusion_matrix_table = confusion_matrix(y_true=y_test, y_pred=y_pred, labels=distinct_labels)
+        print("\nCONFUSION MATRIX")
+        print(tabulate(confusion_matrix_table))
 
     def print_accuracy_score(self, y_test, y_pred):
         """
@@ -51,7 +54,7 @@ class PrintScores:
 
         In words, the output is equal to the perunage of correctly classified class labels.
         """
-        print('\naccuracy_score', accuracy_score(y_test, y_pred))
+        print('\nAccuracy Score:', round(accuracy_score(y_test, y_pred), 4))
 
     @staticmethod
     def get_distinct_labels(items):
