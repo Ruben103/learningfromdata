@@ -16,5 +16,6 @@ X contains sentences
 Y contains the corresponding sentiment labels.
 """
 
-Experiments.experiment_binary(Experiments())
-Experiments.experiment_multi_class(Experiments())
+# Experiments.experiment_binary(Experiments())
+# Experiments.experiment_multi_class(Experiments())
+Experiments.experiment_probabilities(Experiments())

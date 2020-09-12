@@ -6,6 +6,7 @@ They are individually callable.
 from ClassifierService import ClassifierService
 from DataService import DataService
 from OutputService import PrintScores
+from sklearn.naive_bayes import MultinomialNB
 
 class Experiments:
 
@@ -74,3 +75,13 @@ class Experiments:
         PrintScores().print_precision_score(y_test=y_test, y_pred=y_pred)
         PrintScores().print_recall_score(y_test=y_test, y_pred=y_pred)
         PrintScores().print_f1_score(y_test=y_test, y_pred=y_pred)
+
+    def experiment_probabilities(self):
+        x, y = DataService().read_corpus('trainset.txt', use_sentiment=False)
+        x_train, y_train, x_test, y_test = DataService().test_train_split(x, y)
+        classifier = ClassifierService().construct_classifier()
+        classifier.fit(x_train, y_train)
+        y_pred_prob = classifier.predict_proba(x_test)
+        y_pred_class = classifier.predict(x_test)
+        param = classifier.get_params()
+        print("bug stop")
