@@ -12,11 +12,7 @@ class Experiments:
 
     def experiment_binary(self):
         """
-        OUR COMMENT:
-        This part of the code reads in the trainset.txt and converts it to two lists {X,Y}
-        Setting use_sentiment=True reads the data with binary labels
-        X contains sentences
-        Y contains the corresponding sentiment labels.
+        The code below runs the experiment for the binary classification problem
         """
         x, y = DataService().read_corpus('trainset.txt', use_sentiment=True)
 
@@ -60,6 +56,11 @@ class Experiments:
         PrintScores().print_recall_score(y_test=y_test, y_pred=y_pred)
         PrintScores().print_f1_score(y_test=y_test, y_pred=y_pred)
 
+        print("\nPrinting accuracy score")
+        PrintScores().print_accuracy_score(y_test=y_test, y_pred=y_pred)
+
+        PrintScores().print_confusion_matrix(y_test=y_test, y_pred=y_pred)
+
     def experiment_multi_class(self):
         x, y = DataService().read_corpus('trainset.txt', use_sentiment=False)
 
@@ -76,7 +77,12 @@ class Experiments:
         PrintScores().print_recall_score(y_test=y_test, y_pred=y_pred)
         PrintScores().print_f1_score(y_test=y_test, y_pred=y_pred)
 
-    def experiment_probabilities(self):
+        print("\nPrinting accuracy score")
+        PrintScores().print_accuracy_score(y_test=y_test, y_pred=y_pred)
+
+        PrintScores().print_confusion_matrix(y_test=y_test, y_pred=y_pred)
+
+    def experiment_probabilities_multi(self):
         x, y = DataService().read_corpus('trainset.txt', use_sentiment=False)
         x_train, y_train, x_test, y_test = DataService().test_train_split(x, y)
         classifier = ClassifierService().construct_classifier()
@@ -84,3 +90,14 @@ class Experiments:
         params = classifier.get_params(deep = True)
         y_pred_prob = classifier.predict_proba(x_test)
         print("bug stop")
+        y_pred_class = classifier.predict(x_test)
+        param = classifier.get_params()
+
+    def experiment_probabilities_binary(self):
+        x, y = DataService().read_corpus('trainset.txt', use_sentiment=True)
+        x_train, y_train, x_test, y_test = DataService().test_train_split(x, y)
+        classifier = ClassifierService().construct_classifier()
+        classifier.fit(x_train, y_train)
+        y_pred_prob = classifier.predict_proba(x_test)
+        y_pred_class = classifier.predict(x_test)
+        param = classifier.get_params()
