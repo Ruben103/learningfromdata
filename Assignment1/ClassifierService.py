@@ -25,7 +25,7 @@ class ClassifierService:
 
         # combine the vectorizer with a Naive Bayes classifier
         classifier = Pipeline([('vec', vec),
-                               ('cls', MultinomialNB())])
+                               ('cls', MultinomialNB(alpha=1.0, fit_prior=True))])
         return classifier
 
     # a dummy function that just returns its input
