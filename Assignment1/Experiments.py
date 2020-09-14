@@ -90,8 +90,9 @@ class Experiments:
         params = classifier.get_params(deep = True)
         y_pred_prob = classifier.predict_proba(x_test)
         print("bug stop")
-        y_pred_class = classifier.predict(x_test)
-        param = classifier.get_params()
+
+        print("\nPosterior probabilities:")
+        print('\t', y_pred_prob)
 
     def experiment_probabilities_binary(self):
         x, y = DataService().read_corpus('trainset.txt', use_sentiment=True)
