@@ -91,7 +91,7 @@ class Experiments:
         y_pred_prob = classifier.predict_proba(x_test)
         print("bug stop")
 
-        print("\nPosterior probabilities:")
+        print("\nPosterior probabilities multi-class:")
         print('\t', y_pred_prob)
 
     def experiment_probabilities_binary(self):
@@ -102,3 +102,6 @@ class Experiments:
         y_pred_prob = classifier.predict_proba(x_test)
         y_pred_class = classifier.predict(x_test)
         param = classifier.get_params()
+
+        print("\nPosterior probabilities binary")
+        print('\t', y_pred_prob)
