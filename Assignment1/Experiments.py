@@ -87,9 +87,12 @@ class Experiments:
         x_train, y_train, x_test, y_test = DataService().test_train_split(x, y)
         classifier = ClassifierService().construct_classifier()
         classifier.fit(x_train, y_train)
+        params = classifier.get_params(deep = True)
         y_pred_prob = classifier.predict_proba(x_test)
-        y_pred_class = classifier.predict(x_test)
-        param = classifier.get_params()
+        print("bug stop")
+
+        print("\nPosterior probabilities multi-class:")
+        print('\t', y_pred_prob)
 
     def experiment_probabilities_binary(self):
         x, y = DataService().read_corpus('trainset.txt', use_sentiment=True)
@@ -99,3 +102,6 @@ class Experiments:
         y_pred_prob = classifier.predict_proba(x_test)
         y_pred_class = classifier.predict(x_test)
         param = classifier.get_params()
+
+        print("\nPosterior probabilities binary")
+        print('\t', y_pred_prob)
