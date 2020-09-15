@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a1a4695d-9295-4b7f-ad53-d168ac7f44c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Assignment2/ClassifierService.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment2/Experiments.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Assignment2/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a1a4695d-9295-4b7f-ad53-d168ac7f44c4" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
