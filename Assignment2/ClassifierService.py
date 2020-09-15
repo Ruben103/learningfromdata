@@ -4,5 +4,5 @@ class ClassifierService:
 
     def construct_decisiontreeclassifier(self):
 
-        classifier = DecisionTreeClassifier()
+        classifier = DecisionTreeClassifier(criterion='entropy')
         return classifier

@@ -1,6 +1,7 @@
 from sklearn.tree import DecisionTreeClassifier
 from DataService import DataService
 from ClassifierService import ClassifierService
+from numpy import array
 
 class Experiments:
 
@@ -14,3 +15,7 @@ class Experiments:
         predictions = classifier.predict(x_test)
 
         print("STOP")
+
+    def experiment_edible_fruit(self):
+
+        table = DataService().read_edible_fruit_table()

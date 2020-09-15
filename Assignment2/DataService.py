@@ -1,3 +1,4 @@
+from pandas import read_excel
 
 class DataService:
 
@@ -34,3 +35,9 @@ class DataService:
         y_test = y[split_point:]
 
         return x_train, y_train, x_test, y_test
+
+    def read_edible_fruit_table(self):
+
+        table = read_excel('ediblefruit.xlsx')
+
+        print("")
