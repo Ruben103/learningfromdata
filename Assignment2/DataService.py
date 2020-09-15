@@ -1,4 +1,4 @@
-from pandas import read_excel
+from pandas import read_csv
 
 class DataService:
 
@@ -38,6 +38,5 @@ class DataService:
 
     def read_edible_fruit_table(self):
 
-        table = read_excel('ediblefruit.xlsx')
-
-        print("")
+        table = read_csv('ediblefruit.csv')
+        return table

@@ -1,7 +1,6 @@
-from sklearn.tree import DecisionTreeClassifier
 from DataService import DataService
 from ClassifierService import ClassifierService
-from numpy import array
+from Calculations import Calculations
 
 class Experiments:
 
@@ -19,3 +18,15 @@ class Experiments:
     def experiment_edible_fruit(self):
 
         table = DataService().read_edible_fruit_table()
+        counting_dictionary = Calculations().calculate_counting_dictionary(table)
+
+        for key in counting_dictionary.keys():
+            entropy_of_features = {}
+            for feature in counting_dictionary[key].keys():
+                total_observations = sum(counting_dictionary[key][feature].values())
+                for item in counting_dictionary[key][feature].keys():
+                    entropy_of_features[feature] = Calculations().entopy(prob=(counting_dictionary[key][feature][item]/ total_observations))
+
+
+
+        print("")
