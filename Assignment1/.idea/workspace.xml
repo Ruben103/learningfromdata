@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1a4695d-9295-4b7f-ad53-d168ac7f44c4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Assignment2/Calculations.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment2/Calculations.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/Calculations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment2/ClassifierService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/ClassifierService.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment2/DataService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/DataService.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment2/Experiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/Experiments.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment2/~$ediblefruit.xlsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment2/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Assignment2/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +126,12 @@
       <workItem from="1599489520745" duration="4926000" />
       <workItem from="1599748292573" duration="13233000" />
       <workItem from="1600086226926" duration="150000" />
-      <workItem from="1600086612396" duration="1101000" />
+      <workItem from="1600086612396" duration="1597000" />
+      <workItem from="1600281363270" duration="1000" />
+      <workItem from="1600349310274" duration="561000" />
+      <workItem from="1600433891668" duration="669000" />
+      <workItem from="1600673286074" duration="129000" />
+      <workItem from="1600714379529" duration="691000" />
     </task>
     <servers />
   </component>
@@ -144,8 +151,19 @@
       </map>
     </option>
   </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ClassifierService.py</url>
+          <line>28</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Assignment1$LFDassignment1__1_.coverage" NAME="LFDassignment1 (1) Coverage Results" MODIFIED="1599916387611" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Downloads" />
-    <SUITE FILE_PATH="coverage/Assignment1$LFDassignment1.coverage" NAME="LFDassignment1 Coverage Results" MODIFIED="1599931084316" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Assignment1$LFDassignment1.coverage" NAME="LFDassignment1 Coverage Results" MODIFIED="1600258261833" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

@@ -22,17 +22,26 @@ class DataService:
 
         return documents, labels
 
+    def cross_validation_split(self, data, labels):
+        # data is of type ndarray.
+        sets = []
+        for i in range(5):
+            split1 = i*(int(data.shape[0]/5))
+            split2 = (i+1)*(int(data.shape[0]/5)) - 1
+            sets.append([data[split1:split2], labels[split1:split2]])
+        return sets
+
     def test_train_split(self, x, y):
         """
         OUR COMMENT:
         A splitpoint variable is used to divide the whole dataset into 75% training and 25% test sets.
         """
 
-        split_point = int(0.75 * len(x))
-        x_train = x[:split_point]
-        y_train = y[:split_point]
-        x_test = x[split_point:]
-        y_test = y[split_point:]
+        split_point1 = int(0.8 * len(x))
+        x_train = x[:split_point1]
+        y_train = y[:split_point1]
+        x_test = x[split_point1:]
+        y_test = y[split_point1:]
 
         return x_train, y_train, x_test, y_test
 
