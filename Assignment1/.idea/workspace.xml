@@ -2,12 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1a4695d-9295-4b7f-ad53-d168ac7f44c4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../Assignment2/readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment2/Calculations.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/Calculations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment2/ClassifierService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/ClassifierService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment2/DataService.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/DataService.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment2/Experiments.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/Experiments.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Assignment2/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Assignment2/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Assignment2/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -132,6 +129,7 @@
       <workItem from="1600433891668" duration="669000" />
       <workItem from="1600673286074" duration="129000" />
       <workItem from="1600714379529" duration="691000" />
+      <workItem from="1600813627262" duration="81000" />
     </task>
     <servers />
   </component>

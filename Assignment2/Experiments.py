@@ -1,9 +1,7 @@
 from DataService import DataService
 from ClassifierService import ClassifierService
-from sklearn.metrics import accuracy_score, f1_score
+from sklearn.metrics import f1_score
 from numpy import mean, inf
-
-
 
 class Experiments:
 
