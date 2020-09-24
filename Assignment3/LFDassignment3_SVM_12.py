@@ -1,5 +1,14 @@
+import sys
+
+from DataService import DataService
+from Experiments import Experiments
+
+
 def main():
-    print("hello world")
+    trainset = sys.argv[1]
+    testset = sys.argv[2]
+
+    x, y = DataService().read_corpus(trainset)
 
 
 if __name__ == '__main__':
