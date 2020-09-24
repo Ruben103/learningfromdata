@@ -1,4 +1,5 @@
 from pandas import read_csv
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
 class DataService:
 
@@ -49,3 +50,13 @@ class DataService:
 
         table = read_csv('ediblefruit.csv')
         return table
+
+    def vectorize_input(self, x, y):
+        def identity(x):
+            return x
+
+        vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
+        x_vec = vec.fit_transform(x)
+        y_vec = vec.fit_transform(y)
+
+        return x_vec.toarray(), y_vec.toarray()
