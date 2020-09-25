@@ -1,6 +1,7 @@
 from pandas import read_csv
 from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
 
+
 class DataService:
 
     def read_corpus(self, corpus_file):

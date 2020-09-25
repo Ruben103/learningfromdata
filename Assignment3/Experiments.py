@@ -13,3 +13,6 @@ class Experiments:
         score = clf.score(x_test, y_test)
         print(score)
 
+
+
+

@@ -5,6 +5,6 @@ from sklearn import svm
 class SVM:
 
     def construct_classifier(self, kernel):
-        if kernel == "linear":
-            clf = svm.SVC(kernel="linear")
+        if kernel == 'linear':
+            clf = svm.SVC(kernel='linear')
             return clf
