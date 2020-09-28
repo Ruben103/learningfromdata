@@ -21,7 +21,7 @@ class Experiments:
 
         start_time = datetime.utcnow()
         print('Fitting training data on', len(x_dev_train), 'Samples')
-        clf.fit(x_dev_train, y_dev_train)
+        clf.fit(x_train, y_train)
 
         training_time = (datetime.utcnow() - start_time).seconds
         print("Training took", training_time, 'seconds..')
@@ -42,7 +42,10 @@ class Experiments:
         x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
         x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
 
-        dev_sets = DataService().cross_validation_split(x_dev_train, y_dev_train)
+        dev_sets = DataService().cross_validation_split(x_train, y_train)
+
+        best_accuracy = -inf
+        best_classifier = None
 
         cv_results ={}
         for C in arange(0.5, 1.1, 0.1):
@@ -64,7 +67,14 @@ class Experiments:
             cv_results[C] = mean(average_score)
             print("Average F1 score for C:", str(C) + ".", round(mean(average_score)), 2)
 
-        print(cv_results)
+            score = round(mean(average_score), 3)
+            # save the best model and use that to classify the testset
+            if score > best_accuracy:
+                best_accuracy = score
+                best_classifier = clf
+
+        y_pred = best_classifier.predict(x_test)
+        print("F1 score (macro):", f1_score(y_pred=y_pred, y_true=y_test, average='macro'))
 
     def experimentCombinatorialCrossValidation(self, trainset, testset):
         print("Reading data")
@@ -78,7 +88,7 @@ class Experiments:
         x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
         x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
 
-        dev_sets = DataService().cross_validation_split(x_dev_train, y_dev_train)
+        dev_sets = DataService().cross_validation_split(x_train, y_train)
 
         best_accuracy = -inf
         best_classifier = None
@@ -109,5 +119,78 @@ class Experiments:
                 if score > best_accuracy:
                     best_accuracy = score
                     best_classifier = clf
+
+        y_pred = best_classifier.predict(x_test)
+        print("F1 score (macro):", f1_score(y_pred=y_pred, y_true=y_test, average='macro'))
+
+    def experimentLinearKernel(self, trainset, testset):
+        print("Reading data")
+        x, y = DataService().read_corpus(trainset)
+
+        # Vectorize the text data and return an (n_samples, n_features) matrix.
+        x_vec = DataService().vectorize_input(x)
+        conversion_dict, y = DataService().labels_string_to_float(y)
+
+        x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
+        x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
+
+        dev_sets = DataService().cross_validation_split(x_dev_train, y_dev_train)
+
+        best_accuracy = -inf
+        best_classifier = None
+
+        cv_results1 = {}
+        cv_results2 = {}
+        for C in arange(0.5, 2.25, 0.25):
+            print("\nProcessing C:", C)
+            average_score1 = []
+            average_score2 = []
+            for set in dev_sets:
+                clf2 = SVM().construct_linear_classifier(penalty='l2', C=C)
+                validation_set = set
+                union_set = DataService().construct_union_set(set.copy(), dev_sets.copy())
+
+                # fit on the rest of the data
+                clf2.fit(union_set[0], union_set[1])
+
+                # validate on validation set
+                y_pred = clf2.predict(validation_set[0])
+
+                score = f1_score(y_true=validation_set[1], y_pred=y_pred, average='binary')
+                average_score1.append(score)
+            cv_results1[C] = mean(average_score1)
+
+            score = round(mean(average_score2), 3)
+            print("Average F1 score for CLF1:", round(mean(average_score1), 3))
+            print("Average F1 score for CLF2:", round(mean(average_score2), 3))
+
+            # save the best model and use that to classify the testset
+            if score > best_accuracy:
+                best_accuracy = score
+                best_classifier = clf2
+
+        y_pred = best_classifier.predict(x_test)
+        print("F1 score (macro):", f1_score(y_pred=y_pred, y_true=y_test, average='macro'))
+
+    def experimentBestModel(self, trainset, testset):
+        print("Reading data")
+        x, y = DataService().read_corpus(trainset)
+        clf = SVM().construct_best_classifier()
+
+        # Vectorize the text data and return an (n_samples, n_features) matrix.
+        x_vec = DataService().vectorize_input(x)
+        conversion_dict, y = DataService().labels_string_to_float(y)
+
+        x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
+
+        dev_sets = DataService().cross_validation_split(x_train, y_train)
+
+        best_accuracy = -inf
+        best_classifier = None
+
+        clf.fit(x_train, y_train)
+        y_pred = clf.predict(x_test)
+
+        print("F1 score (macro):", f1_score(y_pred=y_pred, y_true=y_test, average='macro'))
 
 
