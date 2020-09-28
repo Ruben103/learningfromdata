@@ -7,12 +7,13 @@ from Experiments import Experiments
 
 
 def main():
-    #trainset = sys.argv[1]
-    #testset = sys.argv[2]
+    trainset = sys.argv[1]
+    testset = sys.argv[2]
 
-    #x, y = DataService().read_corpus(trainset)
-    Experiments().experimentDefaultSetting('trainset.txt', None)
-
+    if sys.argv[3] == '1':
+        Experiments().experimentDefaultSetting(trainset, testset)
+    elif sys.argv[3] == '2':
+        Experiments().experimentCrossValidation(trainset, testset)
 
 
 if __name__ == '__main__':
