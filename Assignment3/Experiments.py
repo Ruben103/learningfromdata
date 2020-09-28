@@ -22,7 +22,7 @@ class Experiments:
         x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev,  y_dev)
 
         start_time = datetime.utcnow()
-        print('Fitting training data on', len(x_dev_train), 'Samples')
+        print('Fitting training data on', len(x_train), 'Samples')
         clf.fit(x_train, y_train)
 
         training_time = (datetime.utcnow() - start_time).seconds
@@ -42,7 +42,6 @@ class Experiments:
         conversion_dict, y = DataService().labels_string_to_float(y)
 
         x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
-        x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
 
         dev_sets = DataService().cross_validation_split(x_train, y_train)
 
@@ -88,7 +87,6 @@ class Experiments:
         conversion_dict, y = DataService().labels_string_to_float(y)
 
         x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
-        x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
 
         dev_sets = DataService().cross_validation_split(x_train, y_train)
 
@@ -134,9 +132,8 @@ class Experiments:
         conversion_dict, y = DataService().labels_string_to_float(y)
 
         x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
-        x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
 
-        dev_sets = DataService().cross_validation_split(x_dev_train, y_dev_train)
+        dev_sets = DataService().cross_validation_split(x_train, y_train)
 
         best_accuracy = -inf
         best_classifier = None
