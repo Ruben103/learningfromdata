@@ -1,6 +1,8 @@
 from DataService import DataService
 from SupportVectorMachine import SVM
 from sklearn.metrics import accuracy_score, f1_score
+from sklearn.feature_extraction.text import TfidfVectorizer, CountVectorizer
+
 
 from numpy import arange, mean, inf
 from datetime import datetime
@@ -22,9 +24,7 @@ class Experiments:
         start_time = datetime.utcnow()
         print('Fitting training data on', len(x_dev_train), 'Samples')
         clf.fit(x_train, y_train)
-
-        training_time = (datetime.utcnow() - start_time).seconds
-        print("Training took", training_time, 'seconds..')
+        non_zero = []
 
         y_pred = clf.predict(x_dev_test)
         print("Accuracy score:", accuracy_score(y_pred=y_pred, y_true=y_dev_test))
@@ -192,5 +192,63 @@ class Experiments:
         y_pred = clf.predict(x_test)
 
         print("F1 score (macro):", f1_score(y_pred=y_pred, y_true=y_test, average='macro'))
+
+    def experimentFeatures(self, trainset, testset):
+        print("Reading data")
+        x, y = DataService().read_corpus(trainset)
+        clf = SVM().construct_classifier("linear", 1.0)
+
+        # Vectorize the text data and return an (n_samples, n_features) matrix.
+        x_vec = DataService().vectorize_input(x)
+        conversion_dict, y = DataService().labels_string_to_float(y)
+
+        x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
+        x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev,  y_dev)
+
+        start_time = datetime.utcnow()
+        print('Fitting training data on', len(x_dev_train), 'Samples')
+        clf.fit(x_dev_train, y_dev_train)
+        non_zero = []
+        training_time = (datetime.utcnow() - start_time).seconds
+        print("Training took", training_time, 'seconds..')
+
+        y_pred = clf.predict(x_dev_test)
+        print("Accuracy score:", accuracy_score(y_pred=y_pred, y_true=y_dev_test))
+        print("F1 score (macro):", f1_score(y_pred=y_pred, y_true=y_dev_test, average='macro'))
+
+        coef = clf.coef_
+        def identity(x):
+            return x
+        vec = TfidfVectorizer(preprocessor=identity, tokenizer=identity)
+        vec.fit_transform(x)
+        names = vec.get_feature_names()
+        coefs_and_features = list(zip(coef[0], names))
+        list_sorted_pos = sorted(coefs_and_features, key=lambda x: x[0], reverse=True)
+        list_sorted_neg = sorted(coefs_and_features, key=lambda x: x[0])
+        features = []
+        for i in range(100):
+            features.append(list_sorted_pos[i][1])
+        for i in range(100):
+            features.append(list_sorted_neg[i][1])
+
+        new_data = DataService().get_features_from_data(x, features)
+
+        clf2 = SVM().construct_classifier("linear", 1.0)
+        # Vectorize the text data and return an (n_samples, n_features) matrix.
+        x_vec = DataService().vectorize_input(new_data)
+        conversion_dict, y = DataService().labels_string_to_float(y)
+        x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
+        x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
+        start_time = datetime.utcnow()
+        print('Fitting training data on', len(x_dev_train), 'Samples')
+        clf2.fit(x_dev_train, y_dev_train)
+        non_zero = []
+
+        training_time = (datetime.utcnow() - start_time).seconds
+        print("Training took", training_time, 'seconds..')
+
+        y_pred = clf2.predict(x_dev_test)
+        print("Accuracy score:", accuracy_score(y_pred=y_pred, y_true=y_dev_test))
+        print("F1 score (macro):", f1_score(y_pred=y_pred, y_true=y_dev_test, average='macro'))
 
 

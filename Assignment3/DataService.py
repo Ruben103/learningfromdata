@@ -107,3 +107,8 @@ class DataService:
         x_vec = vec.fit_transform(x)
 
         return x_vec.toarray()
+
+    def get_features_from_data(self, documents, words):
+        for document in documents:
+            documents[documents.index(document)] = [word for word in document if word in words]
+        return documents

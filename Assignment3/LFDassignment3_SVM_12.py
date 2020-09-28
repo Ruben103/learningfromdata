@@ -18,6 +18,8 @@ def main():
             Experiments().experimentCombinatorialCrossValidation(trainset, testset)
         elif sys.argv[3] == '4':
             Experiments().experimentLinearKernel(trainset, testset)
+        elif sys.argv[3] == '5':
+            Experiments().experimentFeatures(trainset, testset)
     else:
         Experiments().experimentBestModel(trainset, testset)
 
