@@ -13,7 +13,9 @@ def main():
     if sys.argv[3] == '1':
         Experiments().experimentDefaultSetting(trainset, testset)
     elif sys.argv[3] == '2':
-        Experiments().experimentCrossValidation(trainset, testset)
+        Experiments().experimentCParamterCrossValidation(trainset, testset)
+    elif sys.argv[3] == '3':
+        Experiments().experimentCombinatorialCrossValidation(trainset, testset)
 
 
 if __name__ == '__main__':
