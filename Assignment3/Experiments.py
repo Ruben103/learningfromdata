@@ -24,7 +24,9 @@ class Experiments:
         start_time = datetime.utcnow()
         print('Fitting training data on', len(x_dev_train), 'Samples')
         clf.fit(x_train, y_train)
-        non_zero = []
+
+        training_time = (datetime.utcnow() - start_time).seconds
+        print("Training took", training_time, 'seconds..')
 
         y_pred = clf.predict(x_dev_test)
         print("Accuracy score:", accuracy_score(y_pred=y_pred, y_true=y_dev_test))
@@ -207,7 +209,7 @@ class Experiments:
 
         start_time = datetime.utcnow()
         print('Fitting training data on', len(x_dev_train), 'Samples')
-        clf.fit(x_dev_train, y_dev_train)
+        clf.fit(x_train, y_train)
         non_zero = []
         training_time = (datetime.utcnow() - start_time).seconds
         print("Training took", training_time, 'seconds..')
@@ -226,10 +228,11 @@ class Experiments:
         list_sorted_pos = sorted(coefs_and_features, key=lambda x: x[0], reverse=True)
         list_sorted_neg = sorted(coefs_and_features, key=lambda x: x[0])
         features = []
-        for i in range(100):
+        for i in range(200):
             features.append(list_sorted_pos[i][1])
-        for i in range(100):
+        for i in range(200):
             features.append(list_sorted_neg[i][1])
+        print("\nneg", list_sorted_neg[:100], "\npos", list_sorted_pos[:100])
 
         new_data = DataService().get_features_from_data(x, features)
 
@@ -240,6 +243,7 @@ class Experiments:
         x_train, y_train, x_dev, y_dev, x_test, y_test = DataService().test_dev_train_split(x_vec, y)
         x_dev_train, y_dev_train, x_dev_test, y_dev_test = DataService().test_train_split(x_dev, y_dev)
         start_time = datetime.utcnow()
+        print("\nTRIMMED DATA SET\n----------")
         print('Fitting training data on', len(x_dev_train), 'Samples')
         clf2.fit(x_dev_train, y_dev_train)
         non_zero = []
