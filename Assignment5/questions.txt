@@ -1,0 +1,7 @@
+1. Do we need to train on word embeddings or one-hot encode for the first assignment.
+2. Does each embedding stand for a noun noun pair?
+3. We make eacht pair as one input?
+4. How do we make sure the meaning between two words is learned in this way?
+5. The toolkit will make the word embeddings when we give it a corpus?
+6. Where must we find a corpus?
+7. Is it not more interesting to combine many different context small corpusses as input?
