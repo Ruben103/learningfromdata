@@ -1,10 +1,24 @@
 import json
 import numpy as np
 from sklearn.preprocessing import label_binarize
+from numpy import concatenate
+
 
 class Data:
 
-    def get_embedding(self,word, embeddings):
+    def increment_run(self):
+
+        with open('run.txt', 'rt') as handle:
+            run = int(handle.read())
+            handle.close()
+
+        with open('run.txt', 'wt') as handle:
+            handle.write(str(run + 1))
+            handle.close()
+
+        return run
+
+    def get_embedding(self, word, embeddings):
         try:
             # GloVe embeddings only have lower case words
             return embeddings[word.lower()]
@@ -71,3 +85,33 @@ class Data:
         plt.yticks(tick_marks, classes)
         plt.ylabel('True label')
         plt.show()
+
+    def cross_validation_split(self, data, labels):
+        # data is of type ndarray.
+        sets = []
+        for i in range(5):
+            split1 = i * (int(data.shape[0] / 5))
+            split2 = (i + 1) * (int(data.shape[0] / 5)) - 1
+            sets.append([data[split1:split2], labels[split1:split2]])
+        return sets
+
+    def construct_union_set(self, set, sets):
+        union_set = None
+        for elem in sets:
+
+            if not self.areSame(elem[0], set[0]):
+
+                if union_set is not None:
+                    union_set[0] = concatenate([union_set[0].copy(), elem[0].copy()])
+                    union_set[1] = concatenate([union_set[1].copy(), elem[1].copy()])
+                else:
+                    union_set = [elem[0].copy(), elem[1].copy()]
+        return union_set
+
+    def areSame(self, A, B):
+
+        for i in range(A.shape[0]):
+            for j in range(A.shape[1]):
+                if (A[i][j] != B[i][j]):
+                    return 0
+        return 1
