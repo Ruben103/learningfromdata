@@ -3,7 +3,7 @@ from keras.layers.core import Dense
 from numpy import save, argmax, sqrt
 from keras.callbacks import EarlyStopping
 from keras.layers import Dropout
-from keras.optimizers import sgd, Adam, rmsprop
+from keras.optimizers import *
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 from Data import Data
