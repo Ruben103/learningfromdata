@@ -89,18 +89,17 @@ class Data:
     def cross_validation_split(self, data, labels):
         # data is of type ndarray.
         sets = []
-        for i in range(5):
-            split1 = i * (int(data.shape[0] / 5))
-            split2 = (i + 1) * (int(data.shape[0] / 5)) - 1
+        for i in range(6):
+            split1 = i * (int(data.shape[0] / 6))
+            split2 = (i + 1) * (int(data.shape[0] / 6)) - 1
             sets.append([data[split1:split2], labels[split1:split2]])
         return sets
 
-    def construct_union_set(self, set, sets):
+    def construct_union_set(self, set, early_stopping_set, sets):
         union_set = None
         for elem in sets:
 
-            if not self.areSame(elem[0], set[0]):
-
+            if not self.areSame(elem[0], set[0]) and not self.areSame(elem[0], early_stopping_set[0]):
                 if union_set is not None:
                     union_set[0] = concatenate([union_set[0].copy(), elem[0].copy()])
                     union_set[1] = concatenate([union_set[1].copy(), elem[1].copy()])

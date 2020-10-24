@@ -16,6 +16,15 @@ if __name__ == '__main__':
 	parser.add_argument('-bs', '--batch-size', metavar='N', type=int, default=50, help='batch size')
 	parser.add_argument('-cm', '--confusion-matrix', action='store_true', help = 'Show confusion matrix. Requires matplotlib')
 	args = parser.parse_args()
-	Experiments().experimentDropout(args=args)
 
+	# Experiments for the best model
+	Experiments().experimentBestModel(args=args)
 
+	#Experiment for dropout rate
+	# Experiments().experimentDropoutRate(args=args)
+
+	# Experiment for optimisers
+	# Experiments().experimentOptimisers(args=args)
+
+	# Experiment for batch size
+	# Experiments().experimentBatchsize(args=args)
