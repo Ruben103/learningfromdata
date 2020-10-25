@@ -2,3 +2,7 @@ embeddings.json
 .idea
 OANC_GrAF.zip
 OANC-GrAF
+__pycache__
+__pycache__/*
+Merged_text.txt
+JEOPARDY_QUESTIONS1.json

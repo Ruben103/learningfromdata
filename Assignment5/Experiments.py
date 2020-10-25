@@ -1,11 +1,21 @@
 from ClassifierService import Classifier
 from Data import Data
 from numpy import arange
-from pandas import DataFrame
+from pandas import DataFrame, read_json
 from sklearn.metrics import precision_score, recall_score, f1_score
 
 
 class Experiments:
+
+    def expCorpus(self):
+
+        print("Readin data")
+        file = open("Merged_text.txt", 'r')
+        data = file.read()
+        words = data.split()
+
+        print()
+        print("STOP HERE NOW")
 
     def experimentDefault(self, args):
         # Load data

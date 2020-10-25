@@ -20,6 +20,8 @@ if __name__ == '__main__':
 	# Experiments for the best model
 	Experiments().experimentBestModel(args=args)
 
+	# Experiments().expCorpus()
+
 	#Experiment for dropout rate
 	# Experiments().experimentDropoutRate(args=args)
 
